@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module RakeUi
+  S3_BUCKET = 'rakeuilogs'.freeze
   class RakeTask
     def self.to_safe_identifier(id)
       CGI.escape(id)
@@ -99,9 +100,15 @@ module RakeUi
         system(rake_task_log.rake_command_with_logging)
 
         system(rake_task_log.command_to_mark_log_finished)
+        upload_logs_on_s3(rake_task_log)
       end
 
       rake_task_log
+    end
+
+    def upload_logs_on_s3(rake_task_log)
+      file = File.open(rake_task_log.log_file_full_path)
+      RakeUi::S3Client.put_object_on_s3({ bucket: S3_BUCKET, key: rake_task_log.log_file_name, body: file })
     end
 
     # returns an invokable rake command
