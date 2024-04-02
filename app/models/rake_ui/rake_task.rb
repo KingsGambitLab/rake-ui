@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module RakeUi
-  S3_BUCKET = 'rakeuilogs'.freeze
+  S3_BUCKET = Rails.env.production? ? 'rakeuilogs'.freeze : 'rakeuilogstest'.freeze
   class RakeTask
     def self.to_safe_identifier(id)
       CGI.escape(id)
