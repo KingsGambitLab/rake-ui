@@ -95,6 +95,7 @@ module RakeUi
       )
 
       puts "[rake_ui] [rake_task] [forked] #{rake_task_log.rake_command_with_logging}"
+      upload_blank_log_file_on_s3(rake_task_log)
 
       fork do
         system(rake_task_log.rake_command_with_logging)
@@ -104,6 +105,10 @@ module RakeUi
       end
 
       rake_task_log
+    end
+
+    def upload_blank_log_file_on_s3(rake_task_log)
+      RakeUi::S3Client.put_blank_object_on_s3(bucket: S3_BUCKET, key: rake_task_log.log_file_name)
     end
 
     def upload_logs_on_s3(rake_task_log)

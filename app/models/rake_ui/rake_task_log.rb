@@ -130,7 +130,7 @@ module RakeUi
     end
 
     def file_contents
-      @file_contents ||= File.read(log_file_full_path)
+      @file_contents ||= RakeUi::S3Client.get_object_from_s3(bucket: S3_BUCKET, key: log_file_name)
     end
 
     def command_to_mark_log_finished
