@@ -26,8 +26,8 @@ module RakeUi
 
     def show
       @rake_task_log = RakeUi::RakeTaskLog.find_by_id(params[:id])
-      @log_content_file = RakeUi::S3Client.get_object_from_s3(bucket: S3_BUCKET, key: @rake_task_log.log_file_name)
-      @rake_task_log_content = @log_content_file.gsub("\n", "<br />")
+
+      @rake_task_log_content = @rake_task_log.file_contents.gsub("\n", "<br />")
       @rake_task_log_content_url = rake_task_log_path(@rake_task_log.id, format: :json)
       @is_rake_task_log_finished = @rake_task_log.finished?
 
