@@ -2,6 +2,9 @@
   <div class="section">
 
     <h1>Rake Task Log</h1>
+    <% unless @is_rake_task_log_finished %>
+      <h2>Task is running... Please wait for the logs..</h2>
+    <% end %>
 
     <hr />
 

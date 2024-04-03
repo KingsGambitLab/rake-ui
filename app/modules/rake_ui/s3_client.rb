@@ -9,9 +9,18 @@ module RakeUi
           secret_access_key: GlobalConstant.repository.s3.secret_access_key)
       end
 
+      def put_blank_object_on_s3(bucket:, key:)
+        s3_client.put_object(bucket: bucket, key: key)
+      end
+
       def put_object_on_s3(bucket:, key:, body:)
         s3_client.put_object(bucket: bucket, key: key, body: body)
       end
+
+      def get_object_from_s3(bucket:, key:)
+        s3_client.get_object(bucket: bucket, key: key).body.read
+      end
+
     end
 
   end
