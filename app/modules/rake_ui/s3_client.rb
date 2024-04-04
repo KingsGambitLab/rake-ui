@@ -1,5 +1,7 @@
 module RakeUi
   module S3Client
+
+    S3_BUCKET = Rails.env.production? ? 'rakeuilogs'.freeze : 'rakeuilogstest'.freeze
     class << self
 
       def s3_client
