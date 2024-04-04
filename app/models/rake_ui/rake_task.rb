@@ -127,7 +127,7 @@ module RakeUi
         command += "#{environment} "
       end
 
-      command += "rake #{name}"
+      command += "bundle exec rake #{name}"
 
       if args
         command += "[#{args}]"
